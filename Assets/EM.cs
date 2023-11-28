@@ -200,3 +200,5 @@ public class EM : MonoBehaviour
         isTakingDamage = false;
     }
 }
+
+//노찬바보멍청이 이밈
