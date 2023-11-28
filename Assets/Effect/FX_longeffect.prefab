@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2693612798460912571}
   - component: {fileID: 3166288703994158931}
   m_Layer: 0
-  m_Name: FX_long_effect
+  m_Name: FX_longeffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

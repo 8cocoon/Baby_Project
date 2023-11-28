@@ -10,6 +10,9 @@ public class PS : MonoBehaviour
     private bool isLong = false;
     public int dashdamage = 1;
     public float longCooldown = 3f;
+    public GameObject longeffect;
+    public int longdamage = 1;
+    public Transform longAttackSpawnPoint;
 
     private Animator animator;
     private Rigidbody2D rigid;
@@ -95,15 +98,19 @@ foreach (Collider2D collider in colliders)
     // 대시 쿨다운 동안 대기
     yield return new WaitForSeconds(dashCooldown);
 }
-  IEnumerator Long()
+   IEnumerator Long()
     {
-        // 원거리 공격 애니메이션 재생
+        isLong = true;
         animator.SetTrigger("long");
 
-        // 원거리 공격 종료
-        isLong = false;
-
-        // 원거리 공격 지속 시간 동안 대기 (애니메이션의 길이에 따라 조절)
         yield return new WaitForSeconds(longCooldown);
+
+        if (longeffect != null && longAttackSpawnPoint != null)
+        {
+            GameObject longEffectInstance = Instantiate(longeffect, longAttackSpawnPoint.position, Quaternion.identity);
+            // Set additional properties or apply force to the projectile if needed
+        }
+
+        isLong = false;
     }
 }
