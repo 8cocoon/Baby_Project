@@ -9,10 +9,8 @@ public class PS : MonoBehaviour
     private bool isDashing = false;        // 현재 대시 중인지 여부
     private bool isLong = false;
     public int dashdamage = 1;
-    public float longCooldown = 3f;
+    public Transform pos;  // longpos 변수를 추가
     public GameObject longeffect;
-    public int longdamage = 1;
-    public Transform longAttackSpawnPoint;
 
     private Animator animator;
     private Rigidbody2D rigid;
@@ -32,9 +30,11 @@ public class PS : MonoBehaviour
         }
 
         // X 키를 누르면 원거리 공격 실행
-        else if (Input.GetKeyDown(KeyCode.X) && !isLong)
+        else if (Input.GetKeyDown(KeyCode.X))
         {
-            StartCoroutine(Long());
+            animator.SetTrigger("long");
+
+        Instantiate(longeffect,pos.position,transform.rotation);
         }
     }
 
@@ -98,19 +98,4 @@ foreach (Collider2D collider in colliders)
     // 대시 쿨다운 동안 대기
     yield return new WaitForSeconds(dashCooldown);
 }
-   IEnumerator Long()
-    {
-        isLong = true;
-        animator.SetTrigger("long");
-
-        yield return new WaitForSeconds(longCooldown);
-
-        if (longeffect != null && longAttackSpawnPoint != null)
-        {
-            GameObject longEffectInstance = Instantiate(longeffect, longAttackSpawnPoint.position, Quaternion.identity);
-            // Set additional properties or apply force to the projectile if needed
-        }
-
-        isLong = false;
-    }
 }
