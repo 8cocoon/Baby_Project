@@ -7,10 +7,12 @@ public class PS : MonoBehaviour
     public float dashDuration = 0.5f;      // 대시 지속 시간
     public float dashCooldown = 3f;        // 대시 쿨다운 시간
     private bool isDashing = false;        // 현재 대시 중인지 여부
-    private bool isLong = false;
     public int dashdamage = 1;
+    public int longdamage = 1;
     public Transform pos;  // longpos 변수를 추가
     public GameObject longeffect;
+    public float cooltime;
+    private float curtime;
 
     private Animator animator;
     private Rigidbody2D rigid;
@@ -30,12 +32,26 @@ public class PS : MonoBehaviour
         }
 
         // X 키를 누르면 원거리 공격 실행
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            animator.SetTrigger("long");
+        else if (curtime <= 0 && Input.GetKeyDown(KeyCode.X))
+    {
+        animator.SetTrigger("long");
 
-        Instantiate(longeffect,pos.position,transform.rotation);
+        // 플레이어가 왼쪽을 바라보는 경우에는 flipX를 사용하여 반전
+        bool isFacingLeft = GetComponent<SpriteRenderer>().flipX;
+        Vector3 spawnPosition = pos.position;
+        if (isFacingLeft)
+        {
+            spawnPosition.x -= 1f; // 원하는 위치로 조정
         }
+
+        Instantiate(longeffect, spawnPosition, Quaternion.identity);
+    
+        // 쿨다운 설정
+        curtime = cooltime;
+    }
+
+    // 쿨다운 감소
+    curtime -= Time.deltaTime;
     }
 
     IEnumerator Dash()
