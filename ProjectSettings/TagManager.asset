@@ -9,6 +9,7 @@ TagManager:
   - Hitbox
   - enemyhitbox
   - long
+  - next
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - enemyhit
   - Player
   - long
-  - 
+  - next
   - 
   - 
   - 
