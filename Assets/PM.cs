@@ -124,34 +124,57 @@ public class PM : MonoBehaviour
         Collider2D[] frontColliders = Physics2D.OverlapBoxAll(frontHitboxPosition, boxsize, 0);
         
         // 각 적에게 데미지를 입히고 처리 (전방 히트박스)
-        foreach (Collider2D collider in frontColliders)
-        {
-            Debug.Log("히트(전방)");
-            Debug.Log(collider.GetComponent<EM>().currentHealth);
-            // collider에 들어온 gameobject의 tag가 enemy일 때만 실행
-            if(collider.tag == "Enemy")
-            {
-                collider.GetComponent<EM>().TakeDamage(attackDamage);
-            }
-            // 적 캐릭터에게 데미지를 입히는 로직을 여기에 추가
-            // 적 캐릭터에게 데미지를 입히는 로직을 여기에 추가
-        }
+       foreach (Collider2D collider in frontColliders)
+{
+    Debug.Log("히트(전방)");
+
+    // EM 스크립트를 찾아봅니다.
+    EM enemy = collider.GetComponent<EM>();
+
+    // EGG 스크립트를 찾아봅니다.
+    EGG egg = collider.GetComponent<EGG>();
+
+    // EM 스크립트를 가진 오브젝트에게 데미지를 줍니다.
+    if (enemy != null)
+    {
+        Debug.Log(enemy.currentHealth);
+        enemy.TakeDamage(attackDamage);
+    }
+
+    // EGG 스크립트를 가진 오브젝트에게 데미지를 줍니다.
+    if (egg != null)
+    {
+        egg.TakeDamage(attackDamage);
+    }
+}
 
         // 근접 공격 범위 내의 모든 적 캐릭터를 검색 (뒷방 히트박스)
         Collider2D[] backColliders = Physics2D.OverlapBoxAll(backHitboxPosition, boxsize, 0);
         
         // 각 적에게 데미지를 입히고 처리 (뒷방 히트박스)
         foreach (Collider2D collider in backColliders)
-        {
-            Debug.Log("히트(뒷방)");
-            Debug.Log(collider.GetComponent<EM>().currentHealth);
-            // collider에 들어온 gameobject의 tag가 enemy일 때만 실행
-            if(collider.tag == "Enemy")
-            {
-                collider.GetComponent<EM>().TakeDamage(attackDamage);
-            }
-            // 적 캐릭터에게 데미지를 입히는 로직을 여기에 추가
-        }
+{
+    Debug.Log("히트(전방)");
+
+    // EM 스크립트를 찾아봅니다.
+    EM enemy = collider.GetComponent<EM>();
+
+    // EGG 스크립트를 찾아봅니다.
+    EGG egg = collider.GetComponent<EGG>();
+
+    // EM 스크립트를 가진 오브젝트에게 데미지를 줍니다.
+    if (enemy != null)
+    {
+        Debug.Log(enemy.currentHealth);
+        enemy.TakeDamage(attackDamage);
+    }
+
+    // EGG 스크립트를 가진 오브젝트에게 데미지를 줍니다.
+    if (egg != null)
+    {
+        egg.TakeDamage(attackDamage);
+    }
+}
     }
 
     private void OnDrawGizmos()
