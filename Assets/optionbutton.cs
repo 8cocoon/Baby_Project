@@ -1,9 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class optionbutton : MonoBehaviour
 {
-    public GameObject opwindow; // Inspector에서 설정 창 UI GameObject를 연결
-
+    public GameObject opwindow;
     private void Start()
     {
         // 처음에는 설정 창 비활성화
@@ -15,6 +15,7 @@ public class optionbutton : MonoBehaviour
 
     public void OpenSettingsPanel()
     {
+        Debug.Log("OpenSettingsPanel() called"); // 디버그 출력 추가
         // 설정 창을 활성화
         if (opwindow != null)
         {
