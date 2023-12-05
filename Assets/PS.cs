@@ -16,11 +16,13 @@ public class PS : MonoBehaviour
 
     private Animator animator;
     private Rigidbody2D rigid;
+    private playersound playerSound;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        playerSound = GetComponent<playersound>();
     }
 
     void Update()
@@ -35,6 +37,11 @@ public class PS : MonoBehaviour
         else if (curtime <= 0 && Input.GetKeyDown(KeyCode.X))
     {
         animator.SetTrigger("long");
+
+        if (playerSound != null)
+            {
+                playerSound.longSound();
+            }
 
         // 플레이어가 왼쪽을 바라보는 경우에는 flipX를 사용하여 반전
         bool isFacingLeft = GetComponent<SpriteRenderer>().flipX;
@@ -61,6 +68,11 @@ public class PS : MonoBehaviour
 
     // 대시 애니메이션 재생
     animator.SetTrigger("dash");
+
+    if (playerSound != null)
+            {
+                playerSound.dashSound();
+            }
 
     // 대시 중에는 물리적인 충돌을 무시
     Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("enemyLayer"), true);

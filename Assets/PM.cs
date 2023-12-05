@@ -20,13 +20,15 @@ public class PM : MonoBehaviour
     public float invincibleDuration = 2f; // 무적 시간
     private bool isInvincible = false;
     private Rigidbody2D playerRB;
+    private playersound playerSound;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-          playerRB = GetComponent<Rigidbody2D>();
+        playerRB = GetComponent<Rigidbody2D>();
+        playerSound = GetComponent<playersound>();
           
     }
 
@@ -67,6 +69,11 @@ public class PM : MonoBehaviour
         {
             // 공격 애니메이션 재생
             animator.SetTrigger("atk");
+
+            if (playerSound != null)
+            {
+                playerSound.PlayAttackSound();
+            }
 
             // 근접 공격 로직을 추가
             PerformMeleeAttack();
