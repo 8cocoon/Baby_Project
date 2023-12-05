@@ -9547,6 +9547,7 @@ GameObject:
   - component: {fileID: 1428620025}
   - component: {fileID: 1428620027}
   - component: {fileID: 1428620026}
+  - component: {fileID: 1428620028}
   m_Layer: 5
   m_Name: skill2
   m_TagString: Untagged
@@ -9595,7 +9596,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -618575025, guid: 64fec34a178d84340997cea30d6f32c4, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9612,6 +9613,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428620024}
   m_CullTransparentMesh: 1
+--- !u!114 &1428620028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428620024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f462a3e626ffa884c805c77d65cbaaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image_skill2: {fileID: 1428620026}
 --- !u!1 &1552859469
 GameObject:
   m_ObjectHideFlags: 0
@@ -10100,6 +10114,8 @@ GameObject:
   - component: {fileID: 1783149226}
   - component: {fileID: 1783149227}
   - component: {fileID: 1783149228}
+  - component: {fileID: 1783149230}
+  - component: {fileID: 1783149229}
   m_Layer: 9
   m_Name: mantis
   m_TagString: Player
@@ -10301,12 +10317,123 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashDistance: 1.5
   dashDuration: 0.3
-  dashCooldown: 3
+  dashCooldown: 1.75
   dashdamage: 1
   longdamage: 1
   pos: {fileID: 1552859470}
   longeffect: {fileID: 524066343844579154, guid: 17e31ae7d2777e6489b8bdc2d4fdf863, type: 3}
   cooltime: 2
+--- !u!82 &1783149229
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783149217}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1783149230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783149217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cf3bd63ef28484f9489db1b767b9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackClip: {fileID: 8300000, guid: d995869da6cad0748b71d43534278ade, type: 3}
+  dashClip: {fileID: 8300000, guid: ea2dad7ff55398f4983f741a3346306b, type: 3}
+  longClip: {fileID: 8300000, guid: feb9de1fc6fc7a84f8702bf5196bc674, type: 3}
 --- !u!1 &1808486875
 GameObject:
   m_ObjectHideFlags: 0
@@ -10459,6 +10586,7 @@ GameObject:
   - component: {fileID: 2128055061}
   - component: {fileID: 2128055063}
   - component: {fileID: 2128055062}
+  - component: {fileID: 2128055064}
   m_Layer: 5
   m_Name: skill1
   m_TagString: Untagged
@@ -10507,7 +10635,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -812452996, guid: 64fec34a178d84340997cea30d6f32c4, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -10524,3 +10652,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128055060}
   m_CullTransparentMesh: 1
+--- !u!114 &2128055064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128055060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b047d2b3bc648545a7a39589d067bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image_skill1: {fileID: 2128055062}
