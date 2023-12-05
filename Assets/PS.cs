@@ -7,6 +7,7 @@ public class PS : MonoBehaviour
     public float dashDuration = 0.5f;
     public float dashCooldown = 1.75f; // 대시 쿨다운 시간 추가
     private bool isDashing = false;
+    private bool isParrying = false;
     public int dashdamage = 1;
     public int longdamage = 1;
     public Transform pos;
@@ -30,6 +31,10 @@ public class PS : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z) && !isDashing)
         {
             StartCoroutine(Dash());
+        }
+        else if(Input.GetKeyDown(KeyCode.C) && !isParrying)
+        {
+            StartCoroutine(Parrying());
         }
         else if (curtime <= 0 && Input.GetKeyDown(KeyCode.X))
         {
@@ -57,6 +62,17 @@ public class PS : MonoBehaviour
 
         // 쿨다운 감소
         curtime -= Time.deltaTime;
+    }
+
+    IEnumerator Parrying()
+    {
+        isParrying = true;
+        
+        animator.SetTrigger("parrying");
+
+        yield return null;
+        
+        isParrying = false;
     }
 
     IEnumerator Dash()

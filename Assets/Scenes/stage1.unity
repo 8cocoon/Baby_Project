@@ -9227,8 +9227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.9
-  maxHealth: 3
-  currentHealth: 3
+  maxHealth: 1
+  currentHealth: 1
   aggroRange: 2
   knockbackForce: 3
   knockbackDuration: 0.08
@@ -9471,6 +9471,7 @@ GameObject:
   - component: {fileID: 1350266588}
   - component: {fileID: 1350266590}
   - component: {fileID: 1350266589}
+  - component: {fileID: 1350266591}
   m_Layer: 5
   m_Name: skill3
   m_TagString: Untagged
@@ -9519,7 +9520,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 1873243327, guid: 64fec34a178d84340997cea30d6f32c4, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9536,6 +9537,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350266587}
   m_CullTransparentMesh: 1
+--- !u!114 &1350266591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350266587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add40d49fd6f35a448e2bd1416d821b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image_skill3: {fileID: 1350266589}
 --- !u!1 &1428620024
 GameObject:
   m_ObjectHideFlags: 0
