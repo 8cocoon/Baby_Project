@@ -97,6 +97,16 @@ public class PM : MonoBehaviour
             StartCoroutine(BlinkEffect()); // BlinkEffect 코루틴 시작
             playerRB.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         }
+
+        else if (collision.gameObject.CompareTag("boss") && !isInvincible)
+        {
+            Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+            knockbackDirection.x = Mathf.Sign(knockbackDirection.x);
+            knockbackDirection.y = 1;
+
+            StartCoroutine(BlinkEffect()); // BlinkEffect 코루틴 시작
+            playerRB.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        }
     
     }
 
@@ -141,6 +151,8 @@ public class PM : MonoBehaviour
     // EGG 스크립트를 찾아봅니다.
     EGG egg = collider.GetComponent<EGG>();
 
+    BM boss = collider.GetComponent<BM>();
+
     // EM 스크립트를 가진 오브젝트에게 데미지를 줍니다.
     if (enemy != null)
     {
@@ -152,6 +164,11 @@ public class PM : MonoBehaviour
     if (egg != null)
     {
         egg.TakeDamage(attackDamage);
+    }
+
+    if (boss != null)
+    {
+        boss.TakeDamage(attackDamage);
     }
 }
 
@@ -169,6 +186,8 @@ public class PM : MonoBehaviour
     // EGG 스크립트를 찾아봅니다.
     EGG egg = collider.GetComponent<EGG>();
 
+    BM boss = collider.GetComponent<BM>();
+
     // EM 스크립트를 가진 오브젝트에게 데미지를 줍니다.
     if (enemy != null)
     {
@@ -180,6 +199,11 @@ public class PM : MonoBehaviour
     if (egg != null)
     {
         egg.TakeDamage(attackDamage);
+    }
+
+    if (boss != null)
+    {
+        boss.TakeDamage(attackDamage);
     }
 }
     }

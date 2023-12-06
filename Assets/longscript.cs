@@ -69,6 +69,18 @@ public class longscript : MonoBehaviour
             // 발사체가 적과 충돌하면 발사체 파괴
             Destroy(gameObject);
         }
+
+        else if (collision.gameObject.CompareTag("boss"))
+        {
+            BM bossHealth = collision.gameObject.GetComponent<BM>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(damageAmount);
+            }
+
+            // 발사체가 적과 충돌하면 발사체 파괴
+            Destroy(gameObject);
+        }
     }
   
     void DestroyLong()

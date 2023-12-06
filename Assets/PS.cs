@@ -9,6 +9,7 @@ public class PS : MonoBehaviour
     private bool isDashing = false;
     private bool isParrying = false;
     public int dashdamage = 1;
+    public int dashdamage2 = 1;
     public int longdamage = 1;
     public Transform pos;
     public GameObject longeffect;
@@ -77,8 +78,17 @@ public class PS : MonoBehaviour
 
     IEnumerator Dash()
     {
+
+        if (isDashing)
+        yield break;
+
         // 대시 시작
         isDashing = true;
+
+        if(isDashing)
+        {
+            Debug.Log("대쉬시작");
+        }
 
         // 대시 애니메이션 재생
         animator.SetTrigger("dash");
@@ -90,6 +100,7 @@ public class PS : MonoBehaviour
 
         // 대시 중에는 물리적인 충돌을 무시
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("enemyLayer"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("boss"), true);
 
         // 플레이어가 바라보는 방향을 기준으로 대시 방향 설정
         Vector2 dashDirection = transform.right;
@@ -114,11 +125,18 @@ public class PS : MonoBehaviour
             {
                 if (collider.CompareTag("Enemy"))
                 {
-                    // 충돌한 대상이 적이라면 데미지를 입히기
-                    EM currentHealth = collider.GetComponent<EM>();
-                    if (currentHealth != null)
+                    EM enemyHealth = collider.GetComponent<EM>();  // 수정된 부분: EM 스크립트로 변경
+                    if (enemyHealth != null)
                     {
-                        currentHealth.TakeDamage(dashdamage);
+                        enemyHealth.TakeDamage(dashdamage);  // 수정된 부분: EM의 TakeDamage 메서드 호출
+                    }
+                }
+                else if (collider.CompareTag("boss"))
+                {
+                    BM bossHealth = collider.GetComponent<BM>();
+                    if (bossHealth != null)
+                    {
+                        bossHealth.TakeDamage(dashdamage2);
                     }
                 }
             }
@@ -137,6 +155,7 @@ public class PS : MonoBehaviour
 
         // 대시 중인 동안 무시한 충돌을 다시 활성화
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("enemyLayer"), false);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("boss"), false);
 
         // 대시 쿨다운 동안 대기
         yield return new WaitForSeconds(dashCooldown);

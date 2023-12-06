@@ -8890,6 +8890,7 @@ MonoBehaviour:
   dashDuration: 0.3
   dashCooldown: 3
   dashdamage: 1
+  dashdamage2: 1
   longdamage: 1
   pos: {fileID: 227919956}
   longeffect: {fileID: 524066343844579154, guid: 17e31ae7d2777e6489b8bdc2d4fdf863, type: 3}
@@ -9852,13 +9853,14 @@ GameObject:
   - component: {fileID: 1380868412}
   - component: {fileID: 1380868411}
   - component: {fileID: 1380868415}
-  m_Layer: 6
+  - component: {fileID: 1380868416}
+  m_Layer: 13
   m_Name: boss
-  m_TagString: Enemy
+  m_TagString: boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1380868411
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9966,7 +9968,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380868410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.82, y: -3.82, z: 0}
+  m_LocalPosition: {x: -3.433, y: -3.641, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9994,6 +9996,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1380868416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380868410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032effccc7ff3434d9294ac640e0c008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.9
+  maxHealth: 9
+  bossHealth: 9
+  aggroRange: 3
+  attackCooldown: 5
+  invincibilityDuration: 1
 --- !u!1 &1437084275
 GameObject:
   m_ObjectHideFlags: 0
@@ -10356,7 +10376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660087516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.72, y: -3.693, z: 0}
+  m_LocalPosition: {x: -0.84, y: -3.699, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

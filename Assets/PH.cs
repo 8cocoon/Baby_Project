@@ -25,7 +25,7 @@ public class PH : MonoBehaviour
         {
             TakeDamage(1); // 적에게 닿을 때마다 1의 데미지
         }
-        else if (collision.gameObject.CompareTag("enemyhitbox") && !isInvincible)
+        else if (collision.gameObject.CompareTag("boss") && !isInvincible)
     {
         TakeDamage(1); // 히트박스에 닿을 때마다 1의 데미지
     }
