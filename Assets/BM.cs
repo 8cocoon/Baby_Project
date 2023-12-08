@@ -25,6 +25,12 @@ public class BM : MonoBehaviour
     private bool isInvincible = false; // 추가: 무적 상태 여부를 나타내는 변수
     public float invincibilityDuration = 1.0f; // 추가: 무적 지속 시간
 
+    public float rangedAttackCooldown = 7f;
+    private float lastRangedAttackTime = 0f;
+
+    // 추가된 변수: 원거리 공격 가능한 상태
+    private bool canRangedAttack = false;
+
     //히트박스
     //public GameObject hitbox;
    // public Vector2 hitboxSize = new Vector2(1f, 1f);
@@ -46,14 +52,20 @@ public class BM : MonoBehaviour
             if (followPlayer)
             {
                 MoveTowardsPlayer();
-                LookAtPlayer(); // 어그로가 끌릴 때만 플레이어를 바라보도록 호출
+                LookAtPlayer();
 
-                // 추가된 부분: 플레이어와의 거리를 계산하여 공격 실행
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
                 if (distanceToPlayer <= aggroRange && canAttack && Time.time - lastAttackTime >= attackCooldown)
                 {
                     StartCoroutine(Attack());
                     lastAttackTime = Time.time;
+                }
+
+                // 추가된 부분: 원거리 공격 실행
+                if (canRangedAttack && Time.time - lastRangedAttackTime >= rangedAttackCooldown)
+                {
+                    RangedAttack();
+                    lastRangedAttackTime = Time.time;
                 }
             }
         }
@@ -66,6 +78,15 @@ public class BM : MonoBehaviour
             CheckAggroRange();
             yield return null;
         }
+    }
+
+    void RangedAttack()
+    {
+        // 여기에 원거리 공격에 관련된 코드를 작성하세요.
+        // 예를 들어, 총알을 생성하고 플레이어를 향해 발사하는 등의 동작을 구현할 수 있습니다.
+        // 샘플 코드:
+        // Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        // projectilePrefab은 보스가 발사할 원거리 공격의 프리팹입니다.
     }
 
     void CheckAggroRange()
