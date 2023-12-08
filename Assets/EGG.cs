@@ -7,6 +7,7 @@ public class EGG : MonoBehaviour
     public int currentHealth;
     private bool isTakingDamage = false;
     private Animator animator;
+    public GameObject bossObject; // 보스 오브젝트를 연결할 변수
 
     void Start()
     {
@@ -56,9 +57,29 @@ void Die()
 
 // 애니메이션 이벤트로부터 호출되는 메서드
 void DestroyObject()
-{
-    // 오브젝트를 파괴
-    Destroy(gameObject);
-    isTakingDamage = false; // 데미지를 받고 있는 중이 아님을 표시
-}
+    {
+        // 오브젝트를 파괴
+        Destroy(gameObject);
+        isTakingDamage = false; // 데미지를 받고 있는 중이 아님을 표시
+
+        // 보스 오브젝트가 존재하고 활성화되어 있다면
+        if (bossObject != null && bossObject.activeSelf)
+        {
+            // 보스 오브젝트의 BM 스크립트에서 Think 코루틴을 실행시킴
+            BM bossScript = bossObject.GetComponent<BM>();
+            if (bossScript != null)
+            {
+                StartCoroutine(bossScript.Think());
+            }
+        }
+    }
+
+private void OnDestroy()
+    {
+        if (bossObject != null)
+        {
+            bossObject.SetActive(true);
+        }
+    }
+
 }

@@ -10,6 +10,7 @@ public class PS : MonoBehaviour
     private bool isParrying = false;
     public int dashdamage = 1;
     public int dashdamage2 = 1;
+    public float invincibilityDuration = 1.0f; // 추가: 무적 지속 시간
     public int longdamage = 1;
     public Transform pos;
     public GameObject longeffect;

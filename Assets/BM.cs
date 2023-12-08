@@ -34,12 +34,7 @@ public class BM : MonoBehaviour
 
     // 추가된 변수: 원거리 공격 가능한 상태
     private bool canRangedAttack = false;
-     public Transform pos;
-
-    //히트박스
-    //public GameObject hitbox;
-   // public Vector2 hitboxSize = new Vector2(1f, 1f);
-
+    public Transform pos;
 
     void Awake()
     {
@@ -60,63 +55,68 @@ public class BM : MonoBehaviour
                 LookAtPlayer();
 
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-                if (distanceToPlayer <= aggroRange && canAttack && Time.time - lastAttackTime >= attackCooldown)
-                {
-                    StartCoroutine(Attack());
-                    lastAttackTime = Time.time;
-                }
 
-                // 추가된 부분: 원거리 공격 실행
-                if (canRangedAttack && Time.time - lastRangedAttackTime >= rangedAttackCooldown)
+                // 어그로 범위 안에 있을 때만 행동
+                if (distanceToPlayer <= aggroRange)
                 {
-                    RangedAttack();
-                    lastRangedAttackTime = Time.time;
+                    if (canAttack && Time.time - lastAttackTime >= attackCooldown)
+                    {
+                        StartCoroutine(Attack());
+                        lastAttackTime = Time.time;
+                    }
+
+                    // 추가된 부분: 원거리 공격 실행
+                    if (canRangedAttack && Time.time - lastRangedAttackTime >= rangedAttackCooldown)
+                    {
+                        RangedAttack();
+                        lastRangedAttackTime = Time.time;
+                    }
                 }
             }
         }
     }
 
-    IEnumerator Think()
+    public IEnumerator Think()
     {
         while (!isDead)
         {
             CheckAggroRange();
-            Debug.Log("Think실행");
+            Debug.Log("Think 실행");
             yield return null;
         }
     }
 
     void RangedAttack()
-{
-    animator.SetTrigger("bosslong");
+    {
+        animator.SetTrigger("bosslong");
 
-    Debug.Log("발사");
+        Debug.Log("발사");
 
-    // 발사체 생성
-    GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        // 발사체 생성
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
-    // 플레이어를 향하는 방향 벡터 계산
-    Vector2 directionToPlayer = (player.position - transform.position).normalized;
+        // 플레이어를 향하는 방향 벡터 계산
+        Vector2 directionToPlayer = (player.position - transform.position).normalized;
 
-    // 발사체의 방향 설정
-    projectile.transform.up = directionToPlayer;
+        // 발사체의 방향 설정
+        projectile.transform.up = directionToPlayer;
 
-    // 발사체에 속도 설정
-    projectile.GetComponent<Rigidbody2D>().velocity = directionToPlayer * projectileSpeed;
-}
+        // 발사체에 속도 설정
+        projectile.GetComponent<Rigidbody2D>().velocity = directionToPlayer * projectileSpeed;
+    }
 
     void CheckAggroRange()
-{
-    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-    if (distanceToPlayer < aggroRange)
     {
-        followPlayer = true;
-        canAttack = true;
-        canRangedAttack = true;
-        Debug.Log("어그로끌림");
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+        if (distanceToPlayer < aggroRange)
+        {
+            followPlayer = true;
+            canAttack = true;
+            canRangedAttack = true;
+            Debug.Log("어그로 끌림");
+        }
     }
-}
 
     void MoveTowardsPlayer()
     {
@@ -137,21 +137,6 @@ public class BM : MonoBehaviour
             transform.localScale = new Vector3(1, 1);
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-       // if (hitbox.activeSelf && CompareTag("Player"))
-        //{
-           // Debug.Log("플레이어 히트");
-
-             //히트박스가 플레이어와 충돌하면 플레이어에게 데미지를 입힘
-            //PH playerHealth = other.GetComponent<PH>();
-            //if (playerHealth != null)
-            //{
-             //   playerHealth.TakeDamage(playerDamage);
-            //}
-       // }
-  //  }
-
     IEnumerator Attack()
     {
         // 추가된 부분: 공격 애니메이션 재생
@@ -160,68 +145,43 @@ public class BM : MonoBehaviour
         // 추가된 부분: 공격 가능한 상태 해제
         canAttack = false;
 
-        // 추가된 부분: 히트박스 활성화
-       // Debug.Log("Hitbox activated");
-       // hitbox.SetActive(true);
-
-        // 5초 동안 기다림
+        // 추가된 부분: 5초 동안 기다림
         yield return new WaitForSeconds(5f);
-
-        // 추가된 부분: 히트박스 비활성화
-        //Debug.Log("Hitbox deactivated");
-       // hitbox.SetActive(false);
 
         // 추가된 부분: 공격 가능한 상태로 설정
         canAttack = true;
     }
 
-   // void OnDrawGizmos()
-   // {
-        // 히트박스의 위치와 크기를 시각적으로 표시
-      //  if (hitbox != null)
-       // {
-         //   Gizmos.color = Color.red;
-            
-            // 히트박스의 크기를 표시
-       //     Gizmos.DrawWireCube(hitbox.transform.position, new Vector3(hitboxSize.x, hitboxSize.y, 0f));
-       // }
-  //  }
-
-
     public void TakeDamage(int damage)
-{
-    Debug.Log("아파요");
-
-    if (isDead || isTakingDamage || isInvincible)
-        return;
-
-    bossHealth -= damage;
-
-    if (bossHealth <= 0)
     {
-        Die();
+        Debug.Log("아파요");
+
+        if (isDead || isTakingDamage || isInvincible)
+            return;
+
+        bossHealth -= damage;
+
+        if (bossHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            StartCoroutine(InvincibilityCooldown());
+        }
     }
-    else
+
+    IEnumerator InvincibilityCooldown()
     {
-        StartCoroutine(InvincibilityCooldown());
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibilityDuration);
+        isInvincible = false;
     }
-}
 
-IEnumerator InvincibilityCooldown()
-{
-    isInvincible = true;
-    yield return new WaitForSeconds(invincibilityDuration);
-    isInvincible = false;
-}
-
-
-     void Die()
+    void Die()
     {
         isDead = true;
         Destroy(gameObject);
         Debug.Log("사망");
     }
-
 }
-
-//노찬바보멍청이 이밈
