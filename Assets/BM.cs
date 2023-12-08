@@ -25,11 +25,16 @@ public class BM : MonoBehaviour
     private bool isInvincible = false; // 추가: 무적 상태 여부를 나타내는 변수
     public float invincibilityDuration = 1.0f; // 추가: 무적 지속 시간
 
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 5f;
+
+    // 추가된 변수: 원거리 공격 쿨다운
     public float rangedAttackCooldown = 7f;
     private float lastRangedAttackTime = 0f;
 
     // 추가된 변수: 원거리 공격 가능한 상태
     private bool canRangedAttack = false;
+     public Transform pos;
 
     //히트박스
     //public GameObject hitbox;
@@ -76,35 +81,42 @@ public class BM : MonoBehaviour
         while (!isDead)
         {
             CheckAggroRange();
+            Debug.Log("Think실행");
             yield return null;
         }
     }
 
     void RangedAttack()
-    {
-        // 여기에 원거리 공격에 관련된 코드를 작성하세요.
-        // 예를 들어, 총알을 생성하고 플레이어를 향해 발사하는 등의 동작을 구현할 수 있습니다.
-        // 샘플 코드:
-        // Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        // projectilePrefab은 보스가 발사할 원거리 공격의 프리팹입니다.
-    }
+{
+    animator.SetTrigger("bosslong");
+
+    Debug.Log("발사");
+
+    // 발사체 생성
+    GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+    // 플레이어를 향하는 방향 벡터 계산
+    Vector2 directionToPlayer = (player.position - transform.position).normalized;
+
+    // 발사체의 방향 설정
+    projectile.transform.up = directionToPlayer;
+
+    // 발사체에 속도 설정
+    projectile.GetComponent<Rigidbody2D>().velocity = directionToPlayer * projectileSpeed;
+}
 
     void CheckAggroRange()
-    {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+{
+    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToPlayer < aggroRange)
-        {
-            followPlayer = true;
-            // 추가된 부분: 공격 가능한 상태로 설정
-            canAttack = true;
-        }
-        else
-        {
-            // 추가된 부분: 공격 불가능한 상태로 설정
-            canAttack = false;
-        }
+    if (distanceToPlayer < aggroRange)
+    {
+        followPlayer = true;
+        canAttack = true;
+        canRangedAttack = true;
+        Debug.Log("어그로끌림");
     }
+}
 
     void MoveTowardsPlayer()
     {
@@ -143,7 +155,7 @@ public class BM : MonoBehaviour
     IEnumerator Attack()
     {
         // 추가된 부분: 공격 애니메이션 재생
-        //animator.SetTrigger("boss_atk");
+        animator.SetTrigger("bossatk");
 
         // 추가된 부분: 공격 가능한 상태 해제
         canAttack = false;

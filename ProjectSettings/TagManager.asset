@@ -12,6 +12,7 @@ TagManager:
   - next
   - egg
   - boss
+  - bosslong
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - next
   - egg
   - boss
-  - 
+  - bosslong
   - 
   - 
   - 

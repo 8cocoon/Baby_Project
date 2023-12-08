@@ -107,7 +107,6 @@ public class PM : MonoBehaviour
             StartCoroutine(BlinkEffect()); // BlinkEffect 코루틴 시작
             playerRB.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         }
-    
     }
 
       IEnumerator BlinkEffect()

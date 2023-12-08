@@ -13,10 +13,13 @@ public class PH : MonoBehaviour
 
     private bool isInvincible = false; // 무적 상태 여부
 
+    private playersound playerSound;
+
     private void Start()
     {
         currentHealth = maxHealth;
         UpdateHearts();
+        playerSound = GetComponent<playersound>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -75,8 +78,16 @@ public class PH : MonoBehaviour
 
     private void Die()
     {
+        Invoke("DestroyObject", 0.2f);
         // 플레이어가 죽었을 때 실행되는 로직 추가
+        if (playerSound != null)
+            {
+                playerSound.deadSound();
+            }
+    }
 
+    private void DestroyObject()
+    {
         Destroy(gameObject); // 플레이어 객체를 파괴하여 사라지게 함
     }
 }
