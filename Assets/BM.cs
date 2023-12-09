@@ -36,12 +36,15 @@ public class BM : MonoBehaviour
     private bool canRangedAttack = false;
     public Transform pos;
 
+    private bosssound bossSound;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         bossHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
+        bossSound = GetComponent<bosssound>();
         StartCoroutine("Think");
     }
 
@@ -89,6 +92,11 @@ public class BM : MonoBehaviour
     void RangedAttack()
     {
         animator.SetTrigger("bosslong");
+
+        if (bossSound != null)
+            {
+                bossSound.bosslongSound();
+            }
 
         Debug.Log("발사");
 
@@ -146,6 +154,12 @@ public class BM : MonoBehaviour
 
     // 추가된 부분: 공격 가능한 상태 해제
     canAttack = false;
+    
+    yield return new WaitForSeconds(0.5f);
+    if (bossSound != null)
+            {
+                bossSound.atkSound();
+            }
 
     // 추가된 부분: 이동 애니메이션 정지
     animator.SetBool("bosswalk", false);
@@ -186,6 +200,12 @@ public class BM : MonoBehaviour
     void Die()
     {
         isDead = true;
+
+        if (bossSound != null)
+            {
+                bossSound.bossdeadSound();
+            }
+
         Destroy(gameObject);
         Debug.Log("사망");
     }

@@ -28,8 +28,7 @@ public class PM : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerRB = GetComponent<Rigidbody2D>();
-        playerSound = GetComponent<playersound>();
-          
+        playerSound = GetComponent<playersound>();   
     }
 
     private void Update()
