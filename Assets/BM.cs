@@ -122,6 +122,8 @@ public class BM : MonoBehaviour
     {
         Vector2 direction = (player.position - transform.position).normalized;
         rigid.velocity = new Vector2(direction.x * moveSpeed, rigid.velocity.y);
+
+        animator.SetBool("bosswalk", true);
     }
 
     void LookAtPlayer()
@@ -138,19 +140,22 @@ public class BM : MonoBehaviour
     }
 
     IEnumerator Attack()
-    {
-        // 추가된 부분: 공격 애니메이션 재생
-        animator.SetTrigger("bossatk");
+{
+    // 추가된 부분: 공격 애니메이션 재생
+    animator.SetTrigger("bossatk");
 
-        // 추가된 부분: 공격 가능한 상태 해제
-        canAttack = false;
+    // 추가된 부분: 공격 가능한 상태 해제
+    canAttack = false;
 
-        // 추가된 부분: 5초 동안 기다림
-        yield return new WaitForSeconds(5f);
+    // 추가된 부분: 이동 애니메이션 정지
+    animator.SetBool("bosswalk", false);
 
-        // 추가된 부분: 공격 가능한 상태로 설정
-        canAttack = true;
-    }
+    // 추가된 부분: 5초 동안 기다림
+    yield return new WaitForSeconds(5f);
+
+    // 추가된 부분: 공격 가능한 상태로 설정
+    canAttack = true;
+}
 
     public void TakeDamage(int damage)
     {
