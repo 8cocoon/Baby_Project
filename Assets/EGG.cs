@@ -8,11 +8,13 @@ public class EGG : MonoBehaviour
     private bool isTakingDamage = false;
     private Animator animator;
     public GameObject bossObject; // 보스 오브젝트를 연결할 변수
+    private eggsound eggSound;
 
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+        eggSound = GetComponent<eggsound>();
     }
 
     void Update()
@@ -49,6 +51,11 @@ void Die()
     isDead = true;
     // "eggmove3" 애니메이션을 재생
     animator.SetTrigger("eggmove3");
+    
+    if (eggSound != null)
+        {
+            eggSound.eggbraekSound();
+        }
 
     // "eggmove3" 애니메이션이 끝난 후에 몬스터 파괴
     // 여기서는 1초 뒤에 DestroyObject 메서드를 호출하도록 설정

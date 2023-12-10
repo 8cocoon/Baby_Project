@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BM : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class BM : MonoBehaviour
     public Transform pos;
 
     private bosssound bossSound;
+    public string gameover; // 다음으로 넘어갈 씬의 이름
 
     void Awake()
     {
@@ -198,15 +200,17 @@ public class BM : MonoBehaviour
     }
 
     void Die()
+{
+    isDead = true;
+
+    if (bossSound != null)
     {
-        isDead = true;
-
-        if (bossSound != null)
-            {
-                bossSound.bossdeadSound();
-            }
-
-        Destroy(gameObject);
-        Debug.Log("사망");
+        bossSound.bossdeadSound();
     }
+
+    // 여기에 다음 씬으로 전환하는 코드 추가
+    SceneManager.LoadScene(gameover);
+
+    Debug.Log("사망");
+}
 }
