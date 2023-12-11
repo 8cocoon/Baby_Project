@@ -8,8 +8,11 @@ public class PS : MonoBehaviour
     public float dashCooldown = 1.75f; // 대시 쿨다운 시간 추가
     private bool isDashing = false;
     private bool isParrying = false;
+    private bool isExecute = false;
     public int dashdamage = 1;
     public int dashdamage2 = 1;
+    public int executedmg = 1;
+    public float executeDuration = 0.5f;
     public float invincibilityDuration = 1.0f; // 추가: 무적 지속 시간
     public int longdamage = 1;
     public Transform pos;
@@ -37,6 +40,10 @@ public class PS : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.C) && !isParrying)
         {
             StartCoroutine(Parrying());
+        }
+        else if(Input.GetKeyDown(KeyCode.V) && !isExecute)
+        {
+            StartCoroutine(Execute());
         }
         else if (curtime <= 0 && Input.GetKeyDown(KeyCode.X))
         {
@@ -66,11 +73,68 @@ public class PS : MonoBehaviour
         curtime -= Time.deltaTime;
     }
 
+    IEnumerator Execute()
+{
+    // 쿨타임 무시하고 진행
+    isExecute = true;
+
+    animator.SetTrigger("execute");
+
+    if (playerSound != null)
+            {
+                playerSound.executeSound();
+            }
+
+    // 대시 중에는 물리적인 충돌을 무시
+    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("enemyLayer"), true);
+    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("boss"), true);
+
+    float elapsedTime = 0f;
+    while (elapsedTime < executeDuration)
+    {
+        // 데미지 입히는 코드
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1f, 1f), 0f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                EM enemyHealth = collider.GetComponent<EM>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(executedmg);
+                }
+            }
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+PH playerHealth = player.GetComponent<PH>();
+
+// 예: 1의 체력 회복
+playerHealth.Heal(1);
+
+        // 경과 시간 업데이트
+        elapsedTime += Time.deltaTime;
+
+        yield return null;
+    }
+
+    // 실행이 완료되면 쿨타임과 무시한 충돌을 원래대로 복구
+    isExecute = false;
+
+    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("enemyLayer"), false);
+    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("boss"), false);
+}
+
     IEnumerator Parrying()
     {
         isParrying = true;
         
         animator.SetTrigger("parrying");
+
+        if (playerSound != null)
+            {
+                playerSound.parryingSound();
+            }
 
         yield return null;
         
@@ -160,5 +224,6 @@ public class PS : MonoBehaviour
 
         // 대시 쿨다운 동안 대기
         yield return new WaitForSeconds(dashCooldown);
-    }
-}
+        }   
+         }
+

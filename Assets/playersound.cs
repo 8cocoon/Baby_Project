@@ -5,6 +5,8 @@ public class playersound : MonoBehaviour
     public AudioClip attackClip;
     public AudioClip dashClip;
     public AudioClip longClip;
+    public AudioClip parryingClip;
+    public AudioClip executeClip;
     public AudioClip deadClip;
     private AudioSource audioSource;
 
@@ -32,6 +34,20 @@ public class playersound : MonoBehaviour
         if (longClip != null && audioSource != null)
         {
             audioSource.PlayOneShot(longClip);
+        }
+    }
+    public void parryingSound()
+    {
+        if (parryingClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(parryingClip);
+        }
+    }
+    public void executeSound()
+    {
+        if (executeClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(executeClip);
         }
     }
     public void deadSound()

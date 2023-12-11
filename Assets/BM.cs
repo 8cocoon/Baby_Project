@@ -200,17 +200,22 @@ public class BM : MonoBehaviour
     }
 
     void Die()
-{
-    isDead = true;
-
-    if (bossSound != null)
     {
-        bossSound.bossdeadSound();
+        isDead = true;
+
+        if (bossSound != null)
+        {
+            bossSound.bossdeadSound();
+        }
+
+        // 보스 객체를 바로 파괴
+        Invoke("DestroyObject", 0.5f);
+
+        Debug.Log("사망");
     }
 
-    // 여기에 다음 씬으로 전환하는 코드 추가
-    SceneManager.LoadScene(gameover);
-
-    Debug.Log("사망");
-}
+    void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
 }
