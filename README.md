@@ -36,3 +36,6 @@
 ![image](https://github.com/8cocoon/Baby_Project/assets/152301904/11230f6d-69c0-4102-931b-71cb802dacf8)
 
 제가 잡아놓은 기본적인 스토리에 아트가 스프라이트를 제작해주면 Unity2D로 애니메이션, 움직임 등을 구현하여 제작하었습니다.
+
+![사마기](https://github.com/8cocoon/Baby_Project/assets/152301904/abccb24e-074a-4c2b-bd46-5b3208d2f1d7)
+![사마기 (2)](https://github.com/8cocoon/Baby_Project/assets/152301904/29e6c3f4-18fb-4368-a00f-616e443bd52f)
